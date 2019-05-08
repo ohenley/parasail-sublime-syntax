@@ -1,0 +1,64 @@
+%YAML 1.2
+---
+name: ParaSail
+file_extensions: [psl, psi]
+scope: source.psl
+
+
+contexts:
+  main:
+    # Strings begin and end with quotes, and use backslashes as an escape
+    # character
+    - match: '"'
+      scope: punctuation.definition.string.begin.example-c
+      push: double_quoted_string
+
+    # Comments begin with a '//' and finish at the end of the line
+    - match: '//'
+      scope: punctuation.definition.comment.example-c
+      push: line_comment
+      
+
+    # Keywords are if, else for and while.
+    # Note that blackslashes don't need to be escaped within single quoted
+    # strings in YAML. When using single quoted strings, only single quotes
+    # need to be escaped: this is done by using two single quotes next to each
+    # other.
+    - match: '\b(all|block|case|continue|each|else|elsif|end|exit|for|forward|if|is|loop|return|reverse|some|then|until|while|with)\b'
+      scope: keyword.control.parasail
+
+    - match: \b(type)\b
+      scope: storage.type.type.parasail
+
+    - match: '\b(func)\b'
+      scope: storage.type.function.parasail
+
+    - match: '\b(class)\b'
+      scope: storage.type.class.parasail
+
+    - match: '\b(const|ref)\b'
+      scope: storage.modifier.parasail
+
+    - match: '\b(interface)\b'
+      scope: storage.type.interface.parasail
+
+    - match: '\b(-)?[0-9.]+\b'
+      scope: constant.numeric.parasail
+
+    - match: '\s[-+%/*]\s'
+      scope: keyword.operator.arithmetic.rust
+
+  double_quoted_string:
+    - meta_scope: string.quoted.double.parasail
+    - match: '\\.'
+      scope: constant.character.escape.parasail
+    - match: '"'
+      scope: punctuation.definition.string.end.parasail
+      pop: true
+
+  line_comment:
+    - meta_scope: comment.line.parasail
+    - match: $
+      pop: true
+
+
