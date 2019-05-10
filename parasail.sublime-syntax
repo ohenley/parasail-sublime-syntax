@@ -10,12 +10,12 @@ contexts:
     # Strings begin and end with quotes, and use backslashes as an escape
     # character
     - match: '"'
-      scope: punctuation.definition.string.begin.example-c
+      scope: punctuation.definition.string.begin.parasail
       push: double_quoted_string
 
     # Comments begin with a '//' and finish at the end of the line
     - match: '//'
-      scope: punctuation.definition.comment.example-c
+      scope: punctuation.definition.comment.parasail
       push: line_comment
       
 
@@ -46,7 +46,7 @@ contexts:
       scope: constant.numeric.parasail
 
     - match: '\s[-+%/*]\s'
-      scope: keyword.operator.arithmetic.rust
+      scope: keyword.operator.arithmetic.parasail
 
   double_quoted_string:
     - meta_scope: string.quoted.double.parasail
